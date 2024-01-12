@@ -8,7 +8,7 @@ export function CreateAccountForm(){
         <div className="App">
             <header className="App-header">
                 <input type='text' name="username"/>
-                <input type="password" name="password"/>
+                <input type="password" name="password..."/>
                 <button onClick={"CreateAccount"}>저장</button>
             </header>
         </div>
