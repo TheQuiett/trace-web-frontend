@@ -9,7 +9,7 @@ export function CreateAccountForm(){
             <header className="App-header">
                 <input type='text' name="username"/>
                 <input type="password" name="password..."/>
-                <button onClick={"CreateAccount"}>저장</button>
+                <button onClick={"CreateAccount"}>저2aasdasdasd장</button>
             </header>
         </div>
     );
