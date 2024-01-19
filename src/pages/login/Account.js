@@ -1,5 +1,5 @@
-import logo from './img/new_logo 1.svg';
-import './App.css';
+import logo from '../../img/new_logo 1.svg';
+import '../../App.css';
 
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 
@@ -9,7 +9,7 @@ export function CreateAccountForm(){
             <header className="App-header">
                 <input type='text' name="username"/>
                 <input type="password" name="password..."/>
-                <button onClick={"CreateAccount"}>저2aasdasdasd장</button>
+                <button onClick={"CreateAccount"}>asd</button>
             </header>
         </div>
     );
