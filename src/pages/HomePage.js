@@ -14,6 +14,16 @@ export function HomePage() {
     setList(data);
   }, []);
 
+  const onTap = (item) => {
+    // console.log("onTap", item.id, item.name);
+    let next = list.filter((i) => {
+      if (i.id === item.id) {
+        i.active = !i.active;
+      }
+      return i
+    });
+    setList(next);
+  }
   return <div style={{padding: "20px"}}>
     <h1>리스트 만들기</h1>
     <p>리스트를 만들어 보세요.</p>
@@ -22,16 +32,7 @@ export function HomePage() {
         return <TestCard
           test={item}
           key={item.id}
-          onTap={() => {
-            // console.log("onTap", item.id, item.name);
-            let next = list.filter((i) => {
-              if(i.id === item.id) {
-                i.active = !i.active;
-              }
-              return i
-            });
-            setList(next);
-          }}>
+          onTap={() => onTap(item)}>
           {item.id === 1 && <div style={{color: "tomato"}}>여기는 children</div>}
         </TestCard>
       })
