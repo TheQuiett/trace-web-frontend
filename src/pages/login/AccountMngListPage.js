@@ -1,11 +1,12 @@
 import '../../App.css';
 import React, {useEffect, useState} from "react";
+import Card from "../../components/Card";
 
 export function CreateAccountForm(){
 
     const [userName,setUserName] = useState("");
     const [userPassword,setUserPassword] = useState("");
-const [list, setList] = useState([]);
+    const [list, setList] = useState([]);
     const handleSubmit = ()=>{
 
         // console.log("userName:"+userName+",userPassword:"+userPassword);
@@ -32,6 +33,22 @@ const [list, setList] = useState([]);
             });
     }
 
+    const deleteRowEvent = (itemId) =>{
+        let tempList = list.filter((item) => {
+            return item.id !== itemId
+        });
+        setList(tempList);
+    }
+
+    const incrementAgeEvent = (itemId) =>{
+        let tempList = list.map((item) => {
+            if(item.id === itemId){
+                item.age++;
+            }
+        });
+        setList(tempList);
+    }
+
     useEffect(() => {
         // init
         // fetch data
@@ -43,12 +60,13 @@ const [list, setList] = useState([]);
     return (
         <div className="App">
             <header className="App-header">
-                <input type={"text"}        value={userName}        onChange={(e) => setUserName(e.target.value)}></input>
-                <input type={"password"}    value={userPassword}    onChange={(e) => setUserPassword(e.target.value)}></input>
-                <button onClick={handleSubmit}>저장</button>
-                {
-                    list.map(item => <div id={item.id}>{item.name}</div>)
-                }
+                <p>sdsds</p>
+                {list.map(item => {
+                    return <Card
+                        item={item}
+                        delRowEvent={()=>deleteRowEvent(item.id)}
+                        incrementAgeEvent={()=>incrementAgeEvent(item.id)}></Card>
+                })}
             </header>
         </div>
     );
