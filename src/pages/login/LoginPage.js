@@ -1,31 +1,58 @@
 import '../../App.css';
 
-import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
-import {AutoLogin} from "./AutoLogin";
-import TextInput from "../../components/TextInput";
-import validators from "../../utils/validator";
-import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 export function LoginPage({_username}) {
+    const navigate = useNavigate();
+
     const [userName, setUserName] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [idSaveFlag,setIdSaveFlag] = useState("true" == localStorage.getItem("ID_SAVE_FLAG_KEY"));
-    const [randomValue] = useState(Math.random().toString());
-
-    console.log(randomValue);
 
     console.log("ID_SAVE_FLAG_KEY:"+!localStorage.getItem("ID_SAVE_FLAG_KEY"));
-
-    const clickEvent = () => {
-        console.log("userName:" + userName + ",userPassword:" + userPassword);
-    }
 
     const idSaveFlagEvent = () => {
         localStorage.setItem("ID_SAVE_FLAG_KEY",!idSaveFlag);
 
         setIdSaveFlag(!idSaveFlag);
+    }
 
+    const createAccountEvent = () => {
+
+        navigate("/account");
+    }
+
+    const loginEvent = ()=>{
+        fetch('http://localhost:8080/checkLogin', {
+            method: "post",
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                "userName":userName,
+                "userPassword":userPassword
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // API 응답 데이터를 처리하는 로직
+            const returnData = data;
+
+            console.log("returnData:"+returnData);
+
+            if(null == returnData || 0 == returnData.length){
+                setErrorMessage("해당 사용자 정보가 없습니다.");
+            }else{
+
+            }
+        })
+        .catch(error => {
+            // 에러 처리 로직
+            console.error('Error fetching data:', error);
+        });
     }
 
     // useEffect(()=>{
@@ -73,9 +100,9 @@ export function LoginPage({_username}) {
 
                 <input type={"password"} value={userPassword}
                        onChange={(e) => setUserPassword(e.target.value)}></input>
-                <button onClick={clickEvent}>Login</button>
-                <AutoLogin/>
-                <span>아이디 저장<input type="checkbox" onClick={idSaveFlagEvent} checked={idSaveFlag}/></span>
+                <button onClick={loginEvent}>Login</button>
+                <span>아이디 저장<input type="checkbox" onClick={idSaveFlagEvent} checked={idSaveFlag} /></span>
+                <button onClick={createAccountEvent}>회원가입</button>
             </header>
         </div>
     );
