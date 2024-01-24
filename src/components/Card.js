@@ -1,10 +1,14 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
-export function Card() {
+export function Card({item,delRowEvent,incrementAgeEvent}) {
+
     return (
-        <div className="App">
-            <table></table>
+        <div key={item.id}>
+            <p>{item.name}</p>
+            <p>{item.age}</p>
+            <p onClick={delRowEvent}>X</p>
+            <p onClick={incrementAgeEvent}>+</p>
         </div>
     );
 }
